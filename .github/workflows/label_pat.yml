@@ -1,0 +1,24 @@
+name: Label using PAT
+
+on:
+  workflow_dispatch:
+
+jobs:
+  label-prs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Auto-label PRs
+        env:
+          GH_TOKEN: ${{ secrets.TEST_ACTION_REPO_SECRET }}
+        run: |
+          author="gkodinov"
+          # Check if author is in the developers team
+          if gh api \
+            -H "Accept: application/vnd.github+json" \
+            "/orgs/MariaDB/teams/developers/members/$author" \
+            >/dev/null 2>&1; then
+            echo "Author is in developers team"
+          else
+            echo "Author is not in developers team"
+          fi
