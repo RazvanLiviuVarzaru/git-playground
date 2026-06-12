@@ -2,6 +2,9 @@ name: Forward merge chain health
 
 on:
 
+  schedule:
+    - cron: "39 */3 * * *"
+
   workflow_dispatch:
 
 permissions:
